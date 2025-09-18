@@ -66,7 +66,7 @@ const deleteUser = ((req,res) => {
                 return res.status(401).json({message: 'Invalid email or password'})
             }
 
-            const token = jwt.sign({email: user.mail}, 'secret');
+            const token = jwt.sign({email: user.email}, 'secret');
             res.status(200).json({token})
 
 
