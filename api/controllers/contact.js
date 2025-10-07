@@ -5,7 +5,7 @@ const getContacts = ((req,res)=> {
 })
 
 const getContact = ((req,res) => {
-    Contact.findOne({_id: req.params.contactID}).then(result => res.status(200).json({result})).catch(()=>res.status(404).json({msg: error}))
+    Contact.findOne({_id: req.params.contactID}).then(result => res.status(200).json({result})).catch((error)=>res.status(404).json({msg: error}))
 })
 
 const createContact = ((req,res) => {
