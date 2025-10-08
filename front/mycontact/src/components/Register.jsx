@@ -11,32 +11,51 @@ export default function Register() {
 
     
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const query = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                email,
-                password
-        }
-      )
-       
-   };
-   const response = await fetch('http://localhost:3000/api/users/register', query);
-   if(response.status === 204 || response.status === 201 || response.status === 200) {
-    navigate('/')
-    localStorage.removeItem('token')
-   } else {
-    alert(response.json().message)
-   }
-   
-        }catch (err) {
-            return err.message
-        }
-   
-  
+  event.preventDefault();
+  try {
+    const query = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    };
+
+    const response = await fetch('http://localhost:3000/api/users/register', query);
+
+    let resJson;
+    try {
+      resJson = await response.json();
+    } catch {
+      resJson = { error: { message: 'Réponse invalide du serveur' } };
     }
+
+    if (response.ok) {
+      localStorage.removeItem('token');
+      navigate('/');
+      return;
+    }
+
+    let msgError = '';
+
+    if (resJson.error?.error?.errors) {
+      if (resJson.error.error.errors.email) {
+        msgError += '\n' + resJson.error.error.errors.email.message;
+      }
+      if (resJson.error.error.errors.password) {
+        msgError += '\n' + resJson.error.error.errors.password.message;
+      }
+    }
+    else if (resJson.error?.message) {
+      msgError = resJson.error.message;
+    } else {
+      msgError = 'Error';
+    }
+
+    alert(msgError);
+  } catch (err) {
+    alert('Server error : ' + err.message);
+  }
+};
+
   
     return (
         <form onSubmit={handleSubmit}>

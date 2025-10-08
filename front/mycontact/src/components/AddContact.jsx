@@ -5,10 +5,10 @@ import { useNavigate, Link } from 'react-router-dom';
 export default function AddContact() {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
-    const [phone, setNumber] = useState("")
+    const [phone, setNumber] = useState()
     const navigate = useNavigate();
     
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             const query = {
@@ -22,13 +22,29 @@ export default function AddContact() {
                 phone
         })
    };
-   console.log(query.body)
-    fetch('http://localhost:3000/api/contacts', query)
-   .then(response => response.json())
+    const response = await fetch('http://localhost:3000/api/contacts', query);
+    const resJson = await response.json();
+    let messageRequiredField = '';
+    const errorsMongo =  resJson.msg.errors;
+    if(response.ok) {
+        alert(`${firstName} ${lastName} added to your contacts`)
+        navigate('/contacts');
+    } else {
+        if(errorsMongo.phone){
+            messageRequiredField += `\n${errorsMongo.phone.properties.message}`
+        }
+         if(errorsMongo.firstName){
+            messageRequiredField += `\n${errorsMongo.firstName.properties.message}`
+        }
+         if(errorsMongo.lastName){
+            messageRequiredField += `\n${errorsMongo.lastName.properties.message}`
+        }
+        alert(messageRequiredField)
+    }
         }catch (err) {
             return err.message
         }
-   
+        
   
     }
     
@@ -48,12 +64,12 @@ export default function AddContact() {
                 value={lastName}
                  onChange={((e)=> setLastName(e.target.value))}/>
              <input 
-             type="text"
+             type="number"
              name="Phone"
              value={phone}
               onChange={((e)=> setNumber(e.target.value))}
              />
-            <button type='submit'>Create</button>
+            <button type='submit'>Add</button>
         </form>
         </div>
        

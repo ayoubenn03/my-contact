@@ -33,12 +33,19 @@ export default function Contact() {
        const handleDeleteContact = (contact) => {
         navigate('delete-contact', {state: {contact}})
       }
+      const handleLogout = (contact) => {
+        localStorage.removeItem('token')
+        navigate('/')
+      }
       
        
     
 
     return (
         <div>
+            <span onClick={()=>handleLogout()}>
+                Logout
+            </span>
             <p><Link to="/add-contact">Add Contact</Link></p>
             <table>
                 <thead>
@@ -50,7 +57,10 @@ export default function Contact() {
                             Lastname
                         </th>
                           <th>
-                            Number
+                            Phone
+                        </th>
+                         <th>
+                            Actions
                         </th>
                     </tr>
                 </thead>
