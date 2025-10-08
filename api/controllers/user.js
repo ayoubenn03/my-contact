@@ -37,7 +37,13 @@ const deleteUser = ((req,res) => {
     try {
         const existingUser = await User.findOne({email: req.body.email});
         if(existingUser) {
-            return res.status(400).json({error:'User already exist'})
+            return res.status(400).json({error:{message:'User already exist'}})
+        }
+        if(!req.body.password || req.body.password.length>6) {
+            return res.status(400).json({
+                error:{ message: 'The password must have minimum 6 characters '}
+                
+            })
         }
         const hashedPass = await bcrypt.hash(req.body.password, 10)
         const newUser = new User({
