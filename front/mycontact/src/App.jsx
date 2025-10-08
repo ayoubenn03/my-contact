@@ -8,6 +8,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import UpdateContact from './components/UpdateContact';
 import DeleteContact from './components/DeleteContact';
+import Logout from './components/Logout';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/add-contact" element={<AddContact/>}/>
           <Route path="/contacts/edit-contact" element={<UpdateContact/>}/>
           <Route path="/contacts/delete-contact" element={<DeleteContact/>}/>
+          <Route path="/logout" element={<Logout/>}/>
         </Routes>
       </div>
     </Router>

@@ -41,7 +41,15 @@ export default function UpdateContact() {
   
     return (
         <div>
-            <p><Link to='/contacts'>List contacts</Link></p>
+            <nav style={{
+                display: 'flex',
+                gap: '80px',
+                padding: '10px',
+                backgroundColor: '#f0f0f0'
+            }}>
+                 <p><Link to='/contacts'>List contacts</Link></p>
+            </nav>
+           
             <form onSubmit={handleSubmit}>
             <input 
             type ="text"

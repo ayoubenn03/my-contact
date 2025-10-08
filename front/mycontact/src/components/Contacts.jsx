@@ -43,10 +43,21 @@ export default function Contact() {
 
     return (
         <div>
-            <span onClick={()=>handleLogout()}>
-                Logout
-            </span>
-            <p><Link to="/add-contact">Add Contact</Link></p>
+            <nav style={{
+                display: 'flex',
+                gap: '80px',
+                padding: '10px',
+                backgroundColor: '#f0f0f0'
+            }}>
+           
+            <p className="nav-item"><Link to="/add-contact">Add Contact</Link></p>
+             <p style={{
+                cursor: 'pointer'
+                
+            }}
+            className="nav-item"><Link to="/logout">Logout</Link></p>
+            </nav>
+            
             <table>
                 <thead>
                     <tr>
@@ -83,6 +94,20 @@ export default function Contact() {
                     
                 </tbody>
             </table>
+             <style>
+    {`
+      .nav-item {
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: background-color 0.2s;
+      }
+      .nav-item:hover {
+        text-decoration: underline; 
+        text-decoration-color: black; 
+        color: white;
+      }
+    `}
+  </style>
         </div>
        
     );

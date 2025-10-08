@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 export default function Register() {
@@ -59,6 +59,7 @@ export default function Register() {
   
     return (
         <form onSubmit={handleSubmit}>
+          <h1>Register</h1>
           <label>
             Email  <input 
             type ="text"
@@ -75,7 +76,7 @@ export default function Register() {
                  onChange={((e)=> setPassword(e.target.value))}/>
            </label>
             <hr/>
-             
+             <p><Link to="/">Have an account ? Login</Link></p>
             <button type='submit' >Register</button>
         </form>
        
