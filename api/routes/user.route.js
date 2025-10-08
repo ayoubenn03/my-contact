@@ -98,7 +98,7 @@ router.post('/register', register)
  *       401:
  *         description: Invalid credentials
  */
-router.post('/login', verifyToken, login)
+router.post('/login', login)
 
 /**
  * @swagger

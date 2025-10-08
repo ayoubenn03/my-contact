@@ -8,6 +8,7 @@ const {
   updateContact,
   deleteContact
 } = require('../controllers/contact.js')
+const verifyToken = require('../middleware/user.middleware.js')
 
 /**
  * @swagger
@@ -50,6 +51,13 @@ const {
  *   get:
  *     summary: Récupérer la liste de tous les contacts
  *     tags: [Contacts]
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "Token JWT au format Bearer <token>"
  *     responses:
  *       200:
  *         description: Liste de contacts récupérée avec succès
@@ -60,7 +68,7 @@ const {
  *               items:
  *                 $ref: '#/components/schemas/Contact'
  */
-router.get('/', getContacts)
+router.get('/', verifyToken, getContacts)
 
 /**
  * @swagger
@@ -75,6 +83,12 @@ router.get('/', getContacts)
  *         schema:
  *           type: string
  *         description: ID du contact à récupérer
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "Token JWT au format Bearer <token>"
  *     responses:
  *       200:
  *         description: Contact trouvé
@@ -85,7 +99,7 @@ router.get('/', getContacts)
  *       404:
  *         description: Contact non trouvé
  */
-router.get('/:contactID', getContact)
+router.get('/:contactID', verifyToken, getContact)
 
 /**
  * @swagger
@@ -93,6 +107,13 @@ router.get('/:contactID', getContact)
  *   post:
  *     summary: Créer un nouveau contact
  *     tags: [Contacts]
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "Token JWT au format Bearer <token>"
  *     requestBody:
  *       required: true
  *       content:
@@ -102,15 +123,25 @@ router.get('/:contactID', getContact)
  *     responses:
  *       201:
  *         description: Contact créé avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Le contact Jean a bien été ajouté"
+ *                 contact:
+ *                   $ref: '#/components/schemas/Contact'
  *       400:
  *         description: Données invalides
  */
-router.post('/', createContact)
+router.post('/', verifyToken, createContact)
 
 /**
  * @swagger
  * /contacts/{contactID}:
- *   put:
+ *   patch:
  *     summary: Mettre à jour un contact existant
  *     tags: [Contacts]
  *     parameters:
@@ -120,6 +151,12 @@ router.post('/', createContact)
  *         schema:
  *           type: string
  *         description: ID du contact à mettre à jour
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "Token JWT au format Bearer <token>"
  *     requestBody:
  *       required: true
  *       content:
@@ -129,10 +166,20 @@ router.post('/', createContact)
  *     responses:
  *       200:
  *         description: Contact mis à jour avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Le contact Jean a été mis à jour"
+ *                 contact:
+ *                   $ref: '#/components/schemas/Contact'
  *       404:
  *         description: Contact non trouvé
  */
-router.put('/:contactID', updateContact)
+router.patch('/:contactID', verifyToken, updateContact)
 
 /**
  * @swagger
@@ -147,12 +194,26 @@ router.put('/:contactID', updateContact)
  *         schema:
  *           type: string
  *         description: ID du contact à supprimer
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "Token JWT au format Bearer <token>"
  *     responses:
  *       200:
  *         description: Contact supprimé avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Le contact Jean a été supprimé"
  *       404:
  *         description: Contact non trouvé
  */
-router.delete('/:contactID', deleteContact)
+router.delete('/:contactID', verifyToken, deleteContact)
 
-module.exports = router
+module.exports = router;

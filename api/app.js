@@ -41,6 +41,11 @@ mongoose.connect(process.env.MONGO_URI)
             },
         },
     },
+    security: [
+      {
+        bearerAuth: [], 
+      },
+    ],
        },
        apis: ['./routes/*.js'],
    };

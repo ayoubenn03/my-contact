@@ -12,6 +12,10 @@ const ContactSchema = new mongoose.Schema({
    phone: {
     type: String,
     required: false
+   },
+   userId: {
+    type: String,
+    required: true
    }
 })
 const Contact = mongoose.model('Contact', ContactSchema)

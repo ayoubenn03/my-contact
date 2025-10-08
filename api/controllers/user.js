@@ -33,6 +33,7 @@ const deleteUser = ((req,res) => {
 })
 
  const register =  (async (req,res)=> {
+    dateCreation = Date.now();
     try {
         const existingUser = await User.findOne({email: req.body.email});
         if(existingUser) {
@@ -42,7 +43,7 @@ const deleteUser = ((req,res) => {
         const newUser = new User({
             email: req.body.email,
             password: hashedPass,
-            createdAt:  req.body.createdAt
+            createdAt:  dateCreation
         })
 
         await newUser.save();
@@ -66,7 +67,7 @@ const deleteUser = ((req,res) => {
                 return res.status(401).json({message: 'Invalid email or password'})
             }
 
-            const token = jwt.sign({email: user.email}, 'secret');
+            const token = jwt.sign({ id: user._id, email: user.email}, 'secret');
             res.status(200).json({token})
 
 
