@@ -1,18 +1,21 @@
 import { useEffect } from 'react';
 import {useState} from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
-export default function AddContact() {
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
-    const [phone, setNumber] = useState("")
+export default function UpdateContact() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const {contact} = location.state || {};
+    const [firstName, setFirstName] = useState(contact.firstName || '')
+    const [lastName, setLastName] = useState(contact.lastName || '')
+    const [phone, setPhone] = useState(contact.phone || '')
+   
     
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             const query = {
-            method: 'POST',
+            method: 'PATCH',
             headers: { 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token')
              },
@@ -22,9 +25,12 @@ export default function AddContact() {
                 phone
         })
    };
-   console.log(query.body)
-    fetch('http://localhost:3000/api/contacts', query)
-   .then(response => response.json())
+    const response = await fetch(`http://localhost:3000/api/contacts/${contact._id}`, query)
+    const resJon = await response.json();
+    alert(resJon.message)
+    if(response.ok) {
+        navigate('/contacts')
+    }
         }catch (err) {
             return err.message
         }
@@ -51,9 +57,9 @@ export default function AddContact() {
              type="text"
              name="Phone"
              value={phone}
-              onChange={((e)=> setNumber(e.target.value))}
+              onChange={((e)=> setPhone(e.target.value))}
              />
-            <button type='submit'>Create</button>
+            <button type='submit'>Edit</button>
         </form>
         </div>
        

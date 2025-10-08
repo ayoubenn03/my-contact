@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Route, Router, useNavigate } from 'react-router-dom';
+import Register from './Register';
+import {  Link } from "react-router-dom";
 
 
-export default function Register() {
+export default function Login() {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -19,18 +21,17 @@ export default function Register() {
             body: JSON.stringify({
                 email,
                 password
-        }
-      )
-       
+        })
    };
-   const response = await fetch('http://localhost:3000/api/users/register', query);
-   if(response.status === 204 || response.status === 201 || response.status === 200) {
-    navigate('/')
-    localStorage.removeItem('token')
+     const response = await fetch('http://localhost:3000/api/users/login',query)
+     const resJson = await response.json()
+   if(response.ok) {
+    localStorage.setItem( 'token', resJson.token)
+    navigate('/contacts');
    } else {
-    alert(response.json().message)
+    alert(resJson.message)
    }
-   
+  
         }catch (err) {
             return err.message
         }
@@ -39,26 +40,29 @@ export default function Register() {
     }
   
     return (
-        <form onSubmit={handleSubmit}>
-          <label>
-            Email  <input 
+        <div>
+             <form onSubmit={handleSubmit}>
+            <input 
             type ="text"
             name="Email"
             value={email}
             onChange={((e)=> setEmail(e.target.value))}/>
-          </label>
-          <hr/>
-           <label>
-            Password <input 
+            <input 
                 type="text"
                 name="Password"
                 value={password}
                  onChange={((e)=> setPassword(e.target.value))}/>
-           </label>
-            <hr/>
              
-            <button type='submit' >Register</button>
+            <button type='submit'>Login</button>
         </form>
+            <p>Pas de compte ?</p>
+            <p><Link to="/register">Register</Link></p>
+
+
+            
+        </div>
+       
+        
        
     )
 
