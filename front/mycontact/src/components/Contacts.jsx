@@ -1,0 +1,115 @@
+
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+
+export default function Contact() {
+    const [contacts, setContacts] = useState([]);
+    const navigate = useNavigate();
+
+       useEffect(()=> {
+            const query = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+             }
+   };
+            const fetchContacts = async () => {
+                try {
+            const response = await fetch("http://localhost:3000/api/contacts", query)
+            const data = await response.json();
+            setContacts(data.result)
+        } catch (err) {
+            console.error(err)
+            setContacts([])
+        }   
+        }
+        fetchContacts()
+       }, []) 
+
+      const handleUpdateContact = (contact) => {
+        navigate('edit-contact', {state: {contact}})
+      }
+       const handleDeleteContact = (contact) => {
+        navigate('delete-contact', {state: {contact}})
+      }
+      const handleLogout = (contact) => {
+        localStorage.removeItem('token')
+        navigate('/')
+      }
+      
+       
+    
+
+    return (
+        <div>
+            <nav style={{
+                display: 'flex',
+                gap: '80px',
+                padding: '10px',
+                backgroundColor: '#f0f0f0'
+            }}>
+           
+            <p className="nav-item"><Link to="/add-contact">Add Contact</Link></p>
+             <p style={{
+                cursor: 'pointer'
+                
+            }}
+            className="nav-item"><Link to="/logout">Logout</Link></p>
+            </nav>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Firstname
+                        </th>
+                        <th>
+                            Lastname
+                        </th>
+                          <th>
+                            Phone
+                        </th>
+                         <th>
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {contacts.map((contact)=> (
+                        <tr key = {contact._id || index}>
+                            
+                            <td>{contact.firstName}</td>
+                            <td>{contact.lastName}</td>
+                            <td>{contact.phone}</td>
+                            <td>
+                                <button onClick={()=>handleUpdateContact(contact)}>Edit</button>
+                            </td>
+                            <td>
+                                <button onClick={()=>handleDeleteContact(contact)}>Delete</button>
+                            </td>
+                        </tr>
+                        
+                    ))}
+                    
+                </tbody>
+            </table>
+             <style>
+    {`
+      .nav-item {
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: background-color 0.2s;
+      }
+      .nav-item:hover {
+        text-decoration: underline; 
+        text-decoration-color: black; 
+        color: white;
+      }
+    `}
+  </style>
+        </div>
+       
+    );
+   
+}
