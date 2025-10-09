@@ -29,7 +29,7 @@ const updateContact = async (req,res) => {
     await Contact.findByIdAndUpdate(contactId,
         {...req.body}, {new: true, runValidators: true}
     );
-    res.status(200).json({message: `Le contact'${contact.firstName}a bien été ajouté`})
+    res.status(200).json({message: `Le contact ${contact.firstName} ${contact.lastName} a bien été modifié`})
    } catch(err) {
     return res.status(500).json({message: err})
    }
@@ -47,7 +47,7 @@ const deleteContact = async (req,res) => {
             return res.status(403).json({message:' Accès refusé'})
         }
         await Contact.findByIdAndDelete(contactId)
-        res.status(200).json({ message: `${contact.firstName} a bien été supprimer de vos contacts`})
+        res.status(200).json({ message: `${contact.firstName} ${contact.lastName} a bien été supprimer de vos contacts`})
     } catch(err) {
         res.status(500).json({ message: "Erreur serveur", error: error.message });
     }

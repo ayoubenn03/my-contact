@@ -39,7 +39,7 @@ const deleteUser = ((req,res) => {
         if(existingUser) {
             return res.status(400).json({error:{message:'User already exist'}})
         }
-        if(!req.body.password || req.body.password.length>6) {
+        if(!req.body.password || req.body.password.length<6) {
             return res.status(400).json({
                 error:{ message: 'The password must have minimum 6 characters '}
                 

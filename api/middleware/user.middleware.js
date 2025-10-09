@@ -4,8 +4,6 @@ const verifyToken = (req,res,next) => {
     if(!token) {
         return res.status(401).json({error: 'Unauthorized'});
     }
-
-    
         jwt.verify(token,'secret', (err, decoded)=> {
             if (err) {
                 return res.status(401).json({error: 'Unauthorized'});
