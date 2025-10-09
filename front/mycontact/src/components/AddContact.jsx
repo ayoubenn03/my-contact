@@ -22,7 +22,7 @@ export default function AddContact() {
                 phone
         })
    };
-    const response = await fetch(`${process.env.APIURL}/contacts`, query);
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/contacts`, query);
     const resJson = await response.json();
     let messageRequiredField = '';
     const errorsMongo =  resJson.msg.errors;

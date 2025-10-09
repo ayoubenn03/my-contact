@@ -25,7 +25,7 @@ export default function UpdateContact() {
                 phone
         })
    };
-    const response = await fetch(`${process.env.APIURL}/contacts/${contact._id}`, query)
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/contacts/${contact._id}`, query)
     const resJon = await response.json();
     alert(resJon.message)
     if(response.ok) {

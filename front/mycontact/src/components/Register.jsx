@@ -19,7 +19,7 @@ export default function Register() {
       body: JSON.stringify({ email, password })
     };
 
-    const response = await fetch(`${process.env.APIURL}/users/register`, query);
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/users/register`, query);
 
     let resJson;
     try {

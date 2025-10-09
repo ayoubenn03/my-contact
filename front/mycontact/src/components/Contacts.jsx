@@ -16,7 +16,7 @@ export default function Contact() {
    };
             const fetchContacts = async () => {
                 try {
-            const response = await fetch(`${process.env.APIURL}/contacts`, query)
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/contacts`, query)
             const data = await response.json();
             setContacts(data.result)
         } catch (err) {

@@ -23,7 +23,7 @@ export default function Login() {
                 password
         })
    };
-     const response = await fetch(`${process.env.APIURL}/users/login`,query)
+     const response = await fetch(`${import.meta.env.VITE_API_URL}/users/login`,query)
      const resJson = await response.json()
    if(response.ok) {
     localStorage.setItem( 'token', resJson.token)
