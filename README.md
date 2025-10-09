@@ -1,7 +1,7 @@
 ````markdown
 # My Contact - Application de Gestion de Contacts
 
-Application fullstack permettant de gérer ses contacts avec authentification JWT.
+Application MyContact est une appli pour le projet fullstackjs permettant de se connecter en tant qu'utilisateur et pouvoir ajouter, consulter, modifier et supprimer des contacts
 
 ## 🚀 Installation
 
@@ -103,30 +103,10 @@ Pour tester l'application :
 ```env
 PORT=3000
 MONGO_URI=mongodb+srv://...
-JWT_SECRET=votre_secret_jwt
 ```
 
 ### Frontend (`front/mycontact/.env`)
 
 ```env
 VITE_API_URL=http://localhost:3000/api
-```
-
-⚠️ **Important :** Ne jamais commit les fichiers `.env` dans Git !
-
-## 📝 Licence
-
-MIT
-
-```
-
-## Améliorations apportées :
-
-✅ Emojis pour la lisibilité
-✅ Tableaux Markdown pour les endpoints
-✅ Blocs de code avec syntaxe
-✅ Section déploiement claire
-✅ Avertissement sur les `.env`
-✅ Structure plus professionnelle
-✅ Instructions d'accès aux URLs
 ```
