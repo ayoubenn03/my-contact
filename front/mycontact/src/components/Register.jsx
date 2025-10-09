@@ -19,7 +19,7 @@ export default function Register() {
       body: JSON.stringify({ email, password })
     };
 
-    const response = await fetch('http://localhost:3000/api/users/register', query);
+    const response = await fetch(`${process.env.APIURL}/users/register`, query);
 
     let resJson;
     try {
@@ -59,7 +59,7 @@ export default function Register() {
   
     return (
         <form onSubmit={handleSubmit}>
-          <h1>Register</h1>
+          <h2>Register</h2>
           <label>
             Email  <input 
             type ="text"
@@ -70,7 +70,7 @@ export default function Register() {
           <hr/>
            <label>
             Password <input 
-                type="text"
+                type="password"
                 name="Password"
                 value={password}
                  onChange={((e)=> setPassword(e.target.value))}/>

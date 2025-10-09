@@ -23,7 +23,7 @@ export default function Login() {
                 password
         })
    };
-     const response = await fetch('http://localhost:3000/api/users/login',query)
+     const response = await fetch(`${process.env.APIURL}/users/login`,query)
      const resJson = await response.json()
    if(response.ok) {
     localStorage.setItem( 'token', resJson.token)
@@ -41,7 +41,7 @@ export default function Login() {
   
     return (
         <div>
-            <h1>Login</h1>
+            <h2>Login</h2>
              <form onSubmit={handleSubmit}>
                 <label>
                     Email 

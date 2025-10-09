@@ -22,7 +22,7 @@ export default function AddContact() {
                 phone
         })
    };
-    const response = await fetch('http://localhost:3000/api/contacts', query);
+    const response = await fetch(`${process.env.APIURL}/contacts`, query);
     const resJson = await response.json();
     let messageRequiredField = '';
     const errorsMongo =  resJson.msg.errors;
@@ -51,26 +51,64 @@ export default function AddContact() {
   
     return (
         <div>
-            <p><Link to='/contacts'>List contacts</Link></p>
+            <nav style={{
+                display: 'flex',
+                gap: '80px',
+                padding: '10px',
+                backgroundColor: '#f0f0f0'
+            }}>
+           
+            <p className="nav-item"><Link to="/contacts">My contacts</Link></p>
+            </nav>
+            <h2>Add your contact</h2>
             <form onSubmit={handleSubmit}>
-            <input 
-            type ="text"
-            name="Firstname"
-            value={firstName}
-            onChange={((e)=> setFirstName(e.target.value))}/>
-            <input 
+                <label>
+                    FirstName
+                     <input 
+                    type ="text"
+                    name="Firstname"
+                    value={firstName}
+                    onChange={((e)=> setFirstName(e.target.value))}/>
+                </label>
+                <hr/>
+                <label>
+                    Lastname
+                    <input 
                 type="text"
                 name="Lastname"
                 value={lastName}
                  onChange={((e)=> setLastName(e.target.value))}/>
-             <input 
+                </label>
+                <hr/>
+                <label>
+                    Phone number
+                    <input 
              type="number"
              name="Phone"
              value={phone}
               onChange={((e)=> setNumber(e.target.value))}
              />
+                </label>
+            <hr/>
+            
+             
             <button type='submit'>Add</button>
         </form>
+         <style>
+    {`
+      .nav-item {
+       
+        border-radius: 10px;
+        transition: background-color 0.2s;
+      }
+      .nav-item:hover {
+        text-decoration: underline; 
+        text-decoration-color: black; 
+        color: white;
+        
+      }
+    `}
+  </style>
         </div>
        
        

@@ -25,7 +25,7 @@ export default function UpdateContact() {
                 phone
         })
    };
-    const response = await fetch(`http://localhost:3000/api/contacts/${contact._id}`, query)
+    const response = await fetch(`${process.env.APIURL}/contacts/${contact._id}`, query)
     const resJon = await response.json();
     alert(resJon.message)
     if(response.ok) {

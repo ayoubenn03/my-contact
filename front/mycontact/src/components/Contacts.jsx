@@ -16,7 +16,7 @@ export default function Contact() {
    };
             const fetchContacts = async () => {
                 try {
-            const response = await fetch("http://localhost:3000/api/contacts", query)
+            const response = await fetch(`${process.env.APIURL}/contacts`, query)
             const data = await response.json();
             setContacts(data.result)
         } catch (err) {
@@ -33,10 +33,7 @@ export default function Contact() {
        const handleDeleteContact = (contact) => {
         navigate('delete-contact', {state: {contact}})
       }
-      const handleLogout = (contact) => {
-        localStorage.removeItem('token')
-        navigate('/')
-      }
+
       
        
     

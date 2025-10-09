@@ -14,6 +14,7 @@ function App() {
   return (
     <Router>
       <div>
+        <h1>My contacts</h1>
         <Routes>
           <Route path='/' element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
