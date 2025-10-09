@@ -23,8 +23,7 @@ export default function Login() {
                 password
         })
    };
-    console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
-    console.log('Toutes les vars:', import.meta.env);
+   
      const response = await fetch(`${import.meta.env.VITE_API_URL}/users/login`,query)
      const resJson = await response.json()
    if(response.ok) {
