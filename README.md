@@ -6,30 +6,22 @@ Application MyContact est une appli pour le projet fullstackjs permettant de se 
 
 ### Cloner le projet
 
-```bash
 git clone https://github.com/ayoubenn03/my-contact.git
 cd my-contact
-```
-
-````
 
 ### Frontend
 
-```bash
 cd front/mycontact
 npm install
 npm run dev
-```
 
 L'application sera accessible sur `http://localhost:5173`
 
 ### Backend
 
-```bash
 cd api
 npm install
 npx nodemon app.js
-```
 
 L'API sera accessible sur `http://localhost:3000`
 
@@ -110,4 +102,7 @@ MONGO_URI=mongodb+srv://...
 ```env
 VITE_API_URL=http://localhost:3000/api
 ```
-````
+
+```
+
+```
