@@ -1,5 +1,5 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
 const { 
   getContacts,
@@ -7,8 +7,8 @@ const {
   createContact,
   updateContact,
   deleteContact
-} = require('../controllers/contact.js')
-const verifyToken = require('../middleware/user.middleware.js')
+} = require('../controllers/contact.js');
+const verifyToken = require('../middleware/user.middleware.js');
 
 /**
  * @swagger
@@ -30,12 +30,12 @@ const verifyToken = require('../middleware/user.middleware.js')
  *           type: string
  *           description: Nom du contact
  *         phone:
- *           type: string
- *           description: Numéro de téléphone du contact
+ *           type: number
+ *           description: Numéro de téléphone du contact (uniquement chiffres, sans + ni espaces)
  *       example:
  *         firstName: Jean
  *         lastName: Dupont
- *         phone: "+33 6 12 34 56 78"
+ *         phone: 612345678
  */
 
 /**
@@ -57,7 +57,7 @@ const verifyToken = require('../middleware/user.middleware.js')
  *         required: true
  *         schema:
  *           type: string
- *         description: "Token JWT au format Bearer <token>"
+ *         description: "Token JWT (sans 'Bearer ')"
  *     responses:
  *       200:
  *         description: Liste de contacts récupérée avec succès
@@ -68,7 +68,7 @@ const verifyToken = require('../middleware/user.middleware.js')
  *               items:
  *                 $ref: '#/components/schemas/Contact'
  */
-router.get('/', verifyToken, getContacts)
+router.get('/',verifyToken, getContacts);
 
 /**
  * @swagger
@@ -88,7 +88,7 @@ router.get('/', verifyToken, getContacts)
  *         required: true
  *         schema:
  *           type: string
- *         description: "Token JWT au format Bearer <token>"
+ *         description: "Token JWT (sans 'Bearer ')"
  *     responses:
  *       200:
  *         description: Contact trouvé
@@ -99,7 +99,7 @@ router.get('/', verifyToken, getContacts)
  *       404:
  *         description: Contact non trouvé
  */
-router.get('/:contactID', verifyToken, getContact)
+router.get('/:contactID',verifyToken, getContact);
 
 /**
  * @swagger
@@ -113,7 +113,7 @@ router.get('/:contactID', verifyToken, getContact)
  *         required: true
  *         schema:
  *           type: string
- *         description: "Token JWT au format Bearer <token>"
+ *         description: "Token JWT (sans 'Bearer ')"
  *     requestBody:
  *       required: true
  *       content:
@@ -136,7 +136,7 @@ router.get('/:contactID', verifyToken, getContact)
  *       400:
  *         description: Données invalides
  */
-router.post('/', verifyToken, createContact)
+router.post('/',verifyToken, createContact);
 
 /**
  * @swagger
@@ -156,7 +156,7 @@ router.post('/', verifyToken, createContact)
  *         required: true
  *         schema:
  *           type: string
- *         description: "Token JWT au format Bearer <token>"
+ *         description: "Token JWT (sans 'Bearer ')"
  *     requestBody:
  *       required: true
  *       content:
@@ -179,7 +179,7 @@ router.post('/', verifyToken, createContact)
  *       404:
  *         description: Contact non trouvé
  */
-router.patch('/:contactID', verifyToken, updateContact)
+router.patch('/:contactID',verifyToken, updateContact);
 
 /**
  * @swagger
@@ -199,7 +199,7 @@ router.patch('/:contactID', verifyToken, updateContact)
  *         required: true
  *         schema:
  *           type: string
- *         description: "Token JWT au format Bearer <token>"
+ *         description: "Token JWT (sans 'Bearer ')"
  *     responses:
  *       200:
  *         description: Contact supprimé avec succès
@@ -214,6 +214,6 @@ router.patch('/:contactID', verifyToken, updateContact)
  *       404:
  *         description: Contact non trouvé
  */
-router.delete('/:contactID', verifyToken, deleteContact)
+router.delete('/:contactID',verifyToken, deleteContact);
 
 module.exports = router;

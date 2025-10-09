@@ -19,36 +19,39 @@ mongoose.connect(process.env.MONGO_URI)
     .catch((err) => console.log(err))
 
  // Swagger definition
-   const swaggerOptions = {
-       swaggerDefinition: {
-           openapi: '3.0.0',
-           info: {
-               title: 'My Contact API',
-               version: '1.0.0',
-               description: 'API documentation using Swagger',
-           },
-           servers: [
-               {
-                   url: `http://localhost:${port}/api`,
-               },
-           ],
-      components: {
-        securitySchemes: {
-            bearerAuth: {
-                type: 'http',
-                scheme: 'bearer',
-                bearerFormat: 'JWT', 
-            },
+   // Swagger definition
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'My Contact API',
+      version: '1.0.0',
+      description: 'API documentation using Swagger',
+    },
+    servers: [
+      {
+        url: `http://localhost:${port}/api`,
+      },
+    ],
+    components: {
+      securitySchemes: {
+        jwtAuth: {
+          type: 'apiKey',
+          in: 'header',
+          name: 'Authorization',
+          description: 'Enter your JWT token ',
         },
+      },
     },
     security: [
       {
-        bearerAuth: [], 
+        jwtAuth: [],
       },
     ],
-       },
-       apis: ['./routes/*.js'],
-   };
+  },
+  apis: ['./routes/*.js'],
+};
+
 
    const swaggerDocs = swaggerJSDoc(swaggerOptions);
    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));

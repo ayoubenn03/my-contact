@@ -44,4 +44,9 @@ Authorization: <token>
 # Swagger
 
 La documentation API est disponible sur :
-👉 http://localhost:3000/api-docs
+http://localhost:3000/api-docs
+
+# Identifiants test
+
+email: test@gmail.com
+password: test
