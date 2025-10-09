@@ -9,7 +9,7 @@ export default function AddContact() {
     const navigate = useNavigate();
     
     const handleSubmit = async (event) => {
-        event.preventDefault();
+    event.preventDefault();
         try {
             const query = {
             method: 'POST',
@@ -24,12 +24,17 @@ export default function AddContact() {
    };
     const response = await fetch(`${import.meta.env.VITE_API_URL}/contacts`, query);
     const resJson = await response.json();
-    let messageRequiredField = '';
-    const errorsMongo =  resJson.msg.errors;
+
+   
+     
     if(response.ok) {
-        alert(`${firstName} ${lastName} added to your contacts`)
-        navigate('/contacts');
+
+    alert(`${firstName} ${lastName} added to your contacts`);
+    navigate('/contacts');
+
     } else {
+         let messageRequiredField = '';
+    const errorsMongo =  resJson.msg.errors;
         if(errorsMongo.phone){
             messageRequiredField += `\n${errorsMongo.phone.properties.message}`
         }
@@ -83,7 +88,7 @@ export default function AddContact() {
                 <label>
                     Phone number
                     <input 
-             type="number"
+             type="text"
              name="Phone"
              value={phone}
               onChange={((e)=> setNumber(e.target.value))}
