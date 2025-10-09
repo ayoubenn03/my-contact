@@ -1,4 +1,3 @@
-````markdown
 # My Contact - Application de Gestion de Contacts
 
 Application MyContact est une appli pour le projet fullstackjs permettant de se connecter en tant qu'utilisateur et pouvoir ajouter, consulter, modifier et supprimer des contacts
@@ -11,6 +10,7 @@ Application MyContact est une appli pour le projet fullstackjs permettant de se 
 git clone https://github.com/ayoubenn03/my-contact.git
 cd my-contact
 ```
+
 ````
 
 ### Frontend
@@ -110,3 +110,4 @@ MONGO_URI=mongodb+srv://...
 ```env
 VITE_API_URL=http://localhost:3000/api
 ```
+````
